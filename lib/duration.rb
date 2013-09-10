@@ -2,6 +2,7 @@
 require 'i18n'
 require 'active_support/core_ext'
 require 'iso8601'
+require 'duration/mongoid'
 
 # Duration objects are simple mechanisms that allow you to operate on durations
 # of time.  They allow you to know how much time has passed since a certain
@@ -237,5 +238,11 @@ private
     label = send(fn_name) == 1 ? singular : plural
 
     I18n.t(label, :scope => :ruby_duration, :default => label.to_s)
+  end
+end
+
+if defined? Mongoid
+  class Duration
+    include MongoidDuration
   end
 end
